@@ -4,7 +4,9 @@
  */
 #pragma once
 
-#include <libintl.h>
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+#include <boost/locale.hpp>
 #include <fc/variant.hpp>
 
 namespace eosio { namespace client { namespace localize {
@@ -17,7 +19,7 @@ namespace eosio { namespace client { namespace localize {
    inline auto localized_with_variant( const char* raw_fmt, const fc::variant_object& args) {
       if (raw_fmt != nullptr) {
          try {
-            return fc::format_string(::gettext(raw_fmt), args);
+            return fc::format_string(boost::locale::gettext(raw_fmt), args);
          } catch (...) {
          }
          return std::string(raw_fmt);
